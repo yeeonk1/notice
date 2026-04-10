@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cloud.mapper.NoticexMapper">
+	<select id="noticexList" resultType="org.cloud.dto.NoticexDTO">
+		<![CDATA[
+			SELECT * FROM noticex;
+		]]>
+	</select>
+	
+	<insert id="noticexWrite">
+		<![CDATA[
+			INSERT INTO noticex
+			(id, title, content, writer, reg_date)
+			VALUES
+			(#{id}, #{title}, #{content}, #{writer}, NOW());
+		]]>
+	</insert>
+	
+	<select id="noticexDetail">
+		<![CDATA[
+			SELECT * FROM noticex
+			WHERE id = #{id};
+		]]>
+	</select>
+	
+	<update id="noticexUpdate">
+		<![CDATA[
+			UPDATE noticex SET
+			title = #{title}, content = #{content}, writer = #{writer}
+			WHERE id = #{id};
+		]]>
+	</update>
+	
+	<delete id="noticexDelete">
+		<![CDATA[
+			DELETE FROM noticex
+			WHERE id = #{id};
+		]]>
+	</delete>
+	
+	<update id="noticexHitUp">
+		<![CDATA[
+			UPDATE noticex SET
+			hit = hit + 1
+			WHERE id = #{id};
+		]]>
+	</update>
+</mapper>

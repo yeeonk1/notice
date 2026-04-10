@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메인 페이지</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div class="container">
+		<h1>제목 미정 시스템</h1>
+		<div class="menu" th:if="${session.user == null}">
+			<p>서비스를 이용하시려면 로그인해 주세요.</p>			
+			<a th:href="@{/login}" class="btn-link">로그인</a>
+			<a th:href="@{/join}" class="btn-link">회원가입</a>
+		</div>
+		
+		<div class="menu" th:unless="${session.user == null}"> <!-- unless: else -->
+			<div class="user-info">
+				<span th:text="${session.user.userName} + '님, 반갑습니다.'"></span>
+			</div>
+			<a th:href="@{/noticex/list}" class="btn-link" style="margin-top: 50px;">공지사항</a>
+			<a th:href="@{/noticex/writeUI}" class="btn-link">작성하기</a>
+			<a th:href="@{/logout}" class="btn-link">로그아웃</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상세보기</title>
+<style>
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	
+	h2 {
+		margin: 30px;
+		border-left: 5px solid #3c3c3c;
+		padding-left: 20px;
+		width: 80%;
+	}
+	
+	table {
+		border: 1px solid #ccc;
+		border-collapse: collapse;
+		width: 80%;
+		border-radius: 8px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		overflow: hidden;
+	}
+	
+	th, td {
+		padding: 10px;
+	}
+	
+	.title {
+		font-size: 20px;
+	}
+	
+	.text {
+		text-align: center;
+	}
+	
+	.con {
+		height: 300px;
+	}
+	
+	div {
+		display: inline-block;
+		margin: 20px;
+	}
+	
+	a {
+		margin: 50px;
+		background-color: Gray;
+		padding: 10px 20px;
+		text-decoration: none;
+		border-radius: 8px;
+		color: white;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		transition: background 0.3s;
+	}
+	
+	a:hover {
+		background-color: #3c3c3c;
+	}
+</style>
+</head>
+<body>
+	<h2>공지 상세보기</h2>
+	<table th:each="n : ${noticex}" border="1">
+		<thead>
+			<tr class="title">
+				<th th:text="${n.title}" colspan="4"></th>
+			</tr>
+			<tr>
+				<td th:text="${n.id}" class="text"></td>
+				<td th:text="${n.writer}" class="text"></td>
+				<td th:text="${n.regDate}" class="text"></td>
+				<td th:text="${n.hit}" class="text"></td>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td th:text="${n.content}" colspan="4" class="con"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<a th:href="@{/noticex/list}">목록으로</a>
+		<a th:href="@{/noticex/update/{id}(id=${noticex.id})}">수정하기</a>
+		<form th:href="@{/noticex/delete/{id}(id=${noticex.id})}" th:method="delete">
+			<input type="hidden" name="id" th:value="">
+			<a th:href="@{/noticex/delete/{id}(id=${noticex.id})}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
+		</form>
+		
+	</div>
+</body>
+</html>

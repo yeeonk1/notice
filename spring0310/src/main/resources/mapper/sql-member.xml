@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cloud.mapper.MemberMapper">
+	<select id="memberLoginCheck" resultType="org.cloud.dto.MemberDTO" parameterType="org.cloud.dto.MemberDTO">
+		SELECT
+			userid, userpw, username, reg_date
+		FROM
+			nmember
+		WHERE userid = #{userId} AND userpw = #{userPw}; <!-- #{} 안에는 DTO에서 정한 변수 -->
+	</select>
+	
+	<insert id="memberJoin">
+		<![CDATA[
+			INSERT INTO nmember
+				(userid, userpw, username, reg_date)
+			VALUES
+				(#{userId}, #{userPw}, #{userName}, NOW());
+		]]>
+	</insert>
+	
+	<select id="idCheck" parameterType="String">
+		<![CDATA[
+			SELECT count(*) FROM nmember
+			WHERE userid = #{userId};
+		]]>
+	</select>
+</mapper>
